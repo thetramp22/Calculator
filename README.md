@@ -6,7 +6,7 @@ The project is the final assignment in the Foundations Course on [The Odin Proje
 
 ### Live Demo
 
-Find a live demo of the project [here](ADD PAGE HERE).
+Find a live demo of the project [here](https://thetramp22.github.io/calculator/).
 
 ### Screenshot
 

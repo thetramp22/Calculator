@@ -1,7 +1,7 @@
 
-let firstNumber = 0;
-let secondNumber = 0;
-let operator = "";
+let firstNumber = '';
+let secondNumber = '';
+let operator = '';
 let shouldResetDisplay = true;
 
 const btn1 = document.getElementById('btn-1');
@@ -20,6 +20,8 @@ const btnMultiply = document.getElementById('btn-multipy');
 const btnDivide = document.getElementById('btn-divide');
 const btnEquals = document.getElementById('btn-equals');
 const btnClear = document.getElementById('btn-clear');
+const btnPoint = document.getElementById('btn-point');
+const btnBackspace = document.getElementById('btn-backspace');
 
 const currentDisplay = document.getElementById('display');
 
@@ -39,7 +41,14 @@ btnMultiply.addEventListener('click', displayOperator);
 btnDivide.addEventListener('click', displayOperator);
 btnEquals.addEventListener('click', displayEquals);
 btnClear.addEventListener('click', displayClear);
+btnPoint.addEventListener('click', displayPoint);
+btnBackspace.addEventListener('click', displayBackspace);
 
+function runOperation() {
+    secondNumber = Number(currentDisplay.innerText);
+    let result = operate(operator, firstNumber, secondNumber);
+    currentDisplay.innerText = result;
+}
 
 function displayNumber(e) {
     if(shouldResetDisplay){
@@ -48,21 +57,49 @@ function displayNumber(e) {
     currentDisplay.innerText += e.target.innerText;
 }
 
+function displayPoint(e) {
+    if(shouldResetDisplay) clearDisplay();
+    if(currentDisplay.innerText.includes('.')) return;
+    currentDisplay.innerText += '.';
+}
+
 function displayOperator(e) {
+    if(!operator == ''){
+        runOperation();
+    }
     firstNumber = Number(currentDisplay.innerText);
     operator = e.target.innerText;
     shouldResetDisplay = true;
 }
 
 function displayEquals(e) {
-    secondNumber = Number(currentDisplay.innerText);
-    let result = operate(operator, firstNumber, secondNumber);
-    currentDisplay.innerText = result;
+    if(operator == '' || shouldResetDisplay) return;
+    if(operator == '/' && currentDisplay.innerText == '0') {
+        currentDisplay.innerText = "Nice Try";
+        shouldResetDisplay = true;
+        return;
+    }
+    runOperation();
     shouldResetDisplay = true;
+    firstNumber = '';
+    operator = '';
+}
+
+function displayBackspace(e) {
+    if(shouldResetDisplay) clearDisplay();
+    currentDisplay.innerText = currentDisplay.innerText
+    .toString('')
+    .slice(0, -1);
+    if(currentDisplay.innerText == '') {
+        currentDisplay.innerText = '0';
+        shouldResetDisplay = true;
+    }
 }
 
 function displayClear() {
-    clearDisplay();
+    firstNumber = '';
+    secondNumber = '';
+    operator = '';
     currentDisplay.innerText = '0';
     shouldResetDisplay = true;
 }
@@ -70,6 +107,10 @@ function displayClear() {
 function clearDisplay() {
     currentDisplay.innerText = '';
     shouldResetDisplay = false;
+}
+
+function roundResult(num) {
+    return Math.round(num * 1000) / 1000;
 }
 
 // Operator functions

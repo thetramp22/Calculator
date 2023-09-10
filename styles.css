@@ -2,4 +2,83 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    /* border: 1px solid yellow; */
+    font-size: 30px;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+html {
+    background-color: #444;
+    color: #eee;
+}
+
+body {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+button {
+    font-size: 20px;
+    padding: 3px;
+    width: 100px;
+    height: 100px;
+}
+
+.calculator {
+    margin: 30px auto;
+}
+
+#display-container {
+    background-color: #222;
+    width: 300px;
+    height: 55px;
+    margin: 10px auto;
+    padding: 5px 15px;
+    text-align: right;
+}
+
+#btn-container {
+    display: flex;
+    justify-content: center;
+    height: 430px;
+}
+
+#num-btn-container,
+#operator-btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#num-btn-container {
+    width: 330px;
+}
+
+#operator-btn-container {
+    flex-direction: column;
+    
+
+}
+
+footer {
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    font-size: .25rem;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.fa-github {
+    transition: transform 0.2s;
+}
+
+.fa-github:hover {
+    transform: scale(1.3);
 }

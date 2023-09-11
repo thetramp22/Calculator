@@ -47,20 +47,20 @@ btnBackspace.addEventListener('click', displayBackspace);
 function runOperation() {
     secondNumber = Number(currentDisplay.innerText);
     let result = operate(operator, firstNumber, secondNumber);
-    currentDisplay.innerText = result;
+    display(roundResult(result));
 }
 
 function displayNumber(e) {
     if(shouldResetDisplay){
         clearDisplay();
     }
-    currentDisplay.innerText += e.target.innerText;
+    display(currentDisplay.innerText += e.target.innerText);
 }
 
 function displayPoint(e) {
     if(shouldResetDisplay) clearDisplay();
     if(currentDisplay.innerText.includes('.')) return;
-    currentDisplay.innerText += '.';
+    display(currentDisplay.innerText += '.');
 }
 
 function displayOperator(e) {
@@ -75,7 +75,7 @@ function displayOperator(e) {
 function displayEquals(e) {
     if(operator == '' || shouldResetDisplay) return;
     if(operator == '/' && currentDisplay.innerText == '0') {
-        currentDisplay.innerText = "Nice Try";
+        display("Nice Try");
         shouldResetDisplay = true;
         return;
     }
@@ -91,7 +91,7 @@ function displayBackspace(e) {
     .toString('')
     .slice(0, -1);
     if(currentDisplay.innerText == '') {
-        currentDisplay.innerText = '0';
+        display('0');
         shouldResetDisplay = true;
     }
 }
@@ -100,17 +100,24 @@ function displayClear() {
     firstNumber = '';
     secondNumber = '';
     operator = '';
-    currentDisplay.innerText = '0';
+    display('0');
     shouldResetDisplay = true;
 }
 
 function clearDisplay() {
-    currentDisplay.innerText = '';
+    display('');
     shouldResetDisplay = false;
 }
 
 function roundResult(num) {
     return Math.round(num * 1000) / 1000;
+}
+
+function display(toBeDisplayed) {
+    currentDisplay.innerText = toBeDisplayed;
+    if(currentDisplay.innerText.toString().length > 18) {
+        currentDisplay.innerText = currentDisplay.innerText.toString().slice(0, -1);
+    }
 }
 
 // Operator functions
